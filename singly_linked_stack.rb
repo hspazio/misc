@@ -14,7 +14,6 @@ class Node
 end
 
 class SinglyLinkedStack
-  
   attr_accessor :head
 
   def initialize
