@@ -37,7 +37,7 @@ class SinglyLinkedStack
   end
 
   def each(&block)
-  	node = @head
+    node = @head
     while node
       yield node
       node = node.next
