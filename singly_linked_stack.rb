@@ -9,7 +9,7 @@ class Node
   end	
 
   def to_s
-  	@value
+    @value
   end
 end
 
@@ -31,13 +31,13 @@ class SinglyLinkedStack
   end
  
   def pop
-  	pop_node = @head
-  	@head = @head.next
-  	pop_node
+    pop_node = @head
+    @head = @head.next
+    pop_node
   end
 
   def each(&block)
-  	node = @head
+    node = @head
     while node
       yield node
       node = node.next
@@ -52,7 +52,7 @@ class StackTest < Minitest::Test
   end
 
   def test_should_insert_element
-  	node = Node.new(1)
+    node = Node.new(1)
     @stack.push(node)
     assert_equal node, @stack.head 
   end
@@ -64,11 +64,11 @@ class StackTest < Minitest::Test
   end
 
   def test_should_iterate_all_elements
-  	@stack.push(Node.new(1))
-  	@stack.push(Node.new(2))
-  	@stack.push(Node.new(3))
-  	values = [3, 2, 1]
-  	index = 0
+    @stack.push(Node.new(1))
+    @stack.push(Node.new(2))
+    @stack.push(Node.new(3))
+    values = [3, 2, 1]
+    index = 0
     @stack.each do |node|
       assert_equal values[index], node.value
       index += 1
