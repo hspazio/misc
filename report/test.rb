@@ -5,7 +5,7 @@ require_relative 'customer_invite_report'
 
 class CustomerInviteReportTest < Minitest::Test
   def setup
-    reference_geopoint = Geopoint::Degrees.new(53.3393, -6.2576841)
+    reference_geopoint = GeopointDegrees.new(53.3393, -6.2576841)
     @report            = CustomerInviteReport.new(reference_geopoint)
     @range_in_km       = 100
     Customer.store     = 'customers.txt'
@@ -49,21 +49,21 @@ class CustomerTest < Minitest::Test
 
   def test_should_list_customers_within_geopoint_range_in_km
     Customer.store     = 'customers.txt'
-    reference_geopoint = Geopoint::Degrees.new(53.3393, -6.2576841) 
+    reference_geopoint = GeopointDegrees.new(53.3393, -6.2576841) 
     max_distance       = 100 
 
     customers = Customer.within_geopoint_range(reference_geopoint, max_distance)
     
     assert customers.any?
     customers.each do |customer|
-      distance = Geopoint.distance_in_km(reference_geopoint, customer.geopoint)
+      distance = customer.geopoint.distance_in_km(reference_geopoint)
       assert distance <= max_distance
     end
   end
 
   def test_should_raise_error_if_no_store_set
     Customer.store     = nil
-    reference_geopoint = Geopoint::Degrees.new(53.3393, -6.2576841) 
+    reference_geopoint = GeopointDegrees.new(53.3393, -6.2576841) 
     
     assert_raises Customer::StoreError do
       Customer.within_geopoint_range(reference_geopoint, 100)
@@ -73,7 +73,7 @@ end
 
 class GeopointTest < Minitest::Test
   def test_should_convert_degrees_to_radians
-    degrees_point = Geopoint::Degrees.new(53.3393, -6.2576841)
+    degrees_point = GeopointDegrees.new(53.3393, -6.2576841)
 
     radians_point = degrees_point.to_radians
 
@@ -82,7 +82,7 @@ class GeopointTest < Minitest::Test
   end
 
   def test_should_convert_radians_to_degrees
-    radians_point = Geopoint::Radians.new(0.9309464057, -0.109217191094)
+    radians_point = GeopointRadians.new(0.9309464057, -0.109217191094)
 
     degrees_point = radians_point.to_degrees
     
@@ -91,19 +91,19 @@ class GeopointTest < Minitest::Test
   end
 
   def test_should_get_distance_between_points
-    point_1 = Geopoint::Degrees.new(53.3393, -6.2576841)
-    point_2 = Geopoint::Degrees.new(51.8856167, -10.4240951)
+    point_1 = GeopointDegrees.new(53.3393, -6.2576841)
+    point_2 = GeopointDegrees.new(51.8856167, -10.4240951)
 
-    distance = Geopoint.distance_in_km(point_1, point_2)
+    distance = point_1.distance_in_km(point_2)
 
     assert_in_delta 324.36, distance, 0.01
   end
 
   def test_should_get_distance_between_points_without_converting_to_radians
-    point_1 = Geopoint::Degrees.new(53.3393, -6.2576841).to_radians
-    point_2 = Geopoint::Degrees.new(51.8856167, -10.4240951).to_radians
+    point_1 = GeopointDegrees.new(53.3393, -6.2576841).to_radians
+    point_2 = GeopointDegrees.new(51.8856167, -10.4240951).to_radians
 
-    distance = Geopoint.distance_in_km(point_1, point_2)
+    distance = point_1.distance_in_km(point_2)
 
     assert_in_delta 324.36, distance, 0.01
   end

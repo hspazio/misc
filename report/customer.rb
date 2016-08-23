@@ -37,7 +37,7 @@ class Customer
 
     new(id:       params[:user_id], 
     	name:     params[:name],
-    	geopoint: Geopoint::Degrees.new(
+    	geopoint: GeopointDegrees.new(
     	  params[:latitude].to_f,
     	  params[:longitude].to_f))
   end
