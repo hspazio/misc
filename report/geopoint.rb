@@ -10,8 +10,8 @@ module Geopoint
   end
 
   def self.distance_in_km(point_1, point_2)
-  	point_1 = point_1.to_radians if point_1.is_a?(Degrees)
-  	point_2 = point_2.to_radians if point_2.is_a?(Degrees)
+    point_1 = point_1.to_radians if point_1.is_a?(Degrees)
+    point_2 = point_2.to_radians if point_2.is_a?(Degrees)
 
     d_lat = point_2.latitude - point_1.latitude
     d_lon = point_2.longitude - point_1.longitude

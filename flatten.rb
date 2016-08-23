@@ -25,8 +25,8 @@ class CollectionFlattenTest < Minitest::Test
   end
 
   def test_should_flatten_mixed_array_and_hashes
-  	input_array = [1, [:a, { name: 'fabio', surname: 'pitino' }], 3]
-  	expected_array = [1, :a, :name, 'fabio', :surname, 'pitino', 3]
+    input_array = [1, [:a, { name: 'fabio', surname: 'pitino' }], 3]
+    expected_array = [1, :a, :name, 'fabio', :surname, 'pitino', 3]
     assert_equal expected_array, Collection.flatten(input_array)
   end
 end

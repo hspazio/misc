@@ -16,8 +16,8 @@ class Customer
   end
 
   def self.each(&block)
-  	return to_enum(__callee__) unless block_given?
-  	open_store.each_line do |line|
+    return to_enum(__callee__) unless block_given?
+    open_store.each_line do |line|
       yield Customer.initialize_from_json(line)
     end
   end
